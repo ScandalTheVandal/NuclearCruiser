@@ -45,14 +45,18 @@ namespace NuclearCruiser.Patches
             }
             CruiserNuker cn = __instance.GetComponent<CruiserNuker>();
             if (cn == null) return;
-            if (__instance.vehicleID != 0) return;
-            MeshRenderer[] meshRenderers = __instance.GetComponentsInChildren<MeshRenderer>();
-            foreach (var renderer in meshRenderers)
+            if (__instance.vehicleID == 0)
             {
-                if (renderer.transform.name == "MainBodyDestroyed" || renderer.transform.name == "CarHoodMesh" || renderer.transform.name == "Door")
+                MeshRenderer[] meshRenderers = __instance.GetComponentsInChildren<MeshRenderer>();
+                foreach (var renderer in meshRenderers)
                 {
-                    renderer.materials[0].mainTexture = NuclearCruiser.destroyedCruiserTexture;
+                    if (renderer.transform.name.Contains("MainBody") || renderer.transform.name == "CarHoodMesh" || renderer.transform.name == "Door")
+                    {
+                        renderer.materials[0].mainTexture = NuclearCruiser.destroyedCruiserTexture;
+                    }
                 }
+                MeshRenderer? m = __instance.transform.Find("Meshes")?.Find("MainBodyDestroyed").GetComponent<MeshRenderer>();
+                if (m != null) m.materials[0].mainTexture = NuclearCruiser.destroyedCruiserTexture;
             }
             cn.Explode();
         }

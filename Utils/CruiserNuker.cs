@@ -15,12 +15,11 @@ namespace NuclearCruiser.Utils
         
         private void Start()
         {
-
-            if (NuclearCruiser.nuclearCruiserRadiationWarning)
+            if (NuclearCruiser.nuclearCruiserRadiationWarning && !StartOfRound.Instance.inShipPhase)
             {
                 HUDManager.Instance.RadiationWarningHUD();
             }
-            if (NuclearCruiser.nuclearCruiserWarning)
+            if (NuclearCruiser.nuclearCruiserWarning && !StartOfRound.Instance.inShipPhase)
             {
                 if (NuclearCruiser.infiniteBoosts)
                 {
@@ -42,7 +41,7 @@ namespace NuclearCruiser.Utils
             MeshRenderer[] meshRenderers = GetComponentsInChildren<MeshRenderer>();
             foreach (var renderer in meshRenderers)
             {
-                if (renderer.transform.name == "MainBody" || renderer.transform.name == "CarHoodMesh" || renderer.transform.name == "Door" || renderer.transform.name == "MainBody (1)" || renderer.transform.name == "MainBody (2)")
+                if (renderer.transform.name.Contains("MainBody") || renderer.transform.name == "CarHoodMesh" || renderer.transform.name == "Door")
                 {
                     renderer.materials[0].mainTexture = NuclearCruiser.cruiserTexture;
                 }
