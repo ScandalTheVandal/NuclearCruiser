@@ -25,7 +25,7 @@ namespace NuclearCruiser.Network
             prefab.AddComponent<NetworkHandler>();
             NetworkManager.Singleton.AddNetworkPrefab(prefab);
 
-            NuclearCruiser.Logger.LogInfo("Nuclear Cruiser network prefab done.");
+            NuclearCruiser.Logger.LogInfo("Nuclear Cruiser network prefab added.");
         }
 
         public static void SpawnNetworkHandler()
@@ -33,7 +33,7 @@ namespace NuclearCruiser.Network
             if (NetworkManager.Singleton.IsServer || NetworkManager.Singleton.IsHost)
             {
                 Instantiate(prefab)?.GetComponent<NetworkObject>().Spawn();
-                NuclearCruiser.Logger.LogInfo($"Spawned network handler.");
+                NuclearCruiser.Logger.LogInfo("Spawned network handler.");
             }
         }
 
@@ -42,7 +42,7 @@ namespace NuclearCruiser.Network
             if (Instance != null && Instance.gameObject.GetComponent<NetworkObject>().IsSpawned && (NetworkManager.Singleton.IsServer || NetworkManager.Singleton.IsHost))
             {
                 Instance.gameObject.GetComponent<NetworkObject>().Despawn();
-                NuclearCruiser.Logger.LogInfo($"Despawned network handler.");
+                NuclearCruiser.Logger.LogInfo("Despawned network handler.");
             }
         }
 

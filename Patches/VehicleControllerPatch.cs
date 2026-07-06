@@ -7,7 +7,7 @@ namespace NuclearCruiser.Patches
     [HarmonyPatch(typeof(VehicleController))]
     internal class VehicleControllerPatch
     {
-        [HarmonyPatch("Start")]
+        [HarmonyPatch(nameof(VehicleController.Start))]
         [HarmonyPostfix]
         internal static void StartPatch(VehicleController __instance)
         {
@@ -15,7 +15,7 @@ namespace NuclearCruiser.Patches
             {
                 return;
             }
-            if (__instance.NetworkManager.IsHost || __instance.NetworkManager.IsServer)
+            if ((__instance.NetworkManager.IsHost || __instance.NetworkManager.IsServer) && StartOfRound.Instance.attachedVehicle != __instance)
             {
                 System.Random random = new();
                 float value = (float)random.NextDouble();
@@ -26,7 +26,7 @@ namespace NuclearCruiser.Patches
             }
         }
 
-        [HarmonyPatch("UseTurboBoostLocalClient")]
+        [HarmonyPatch(nameof(VehicleController.UseTurboBoostLocalClient))]
         [HarmonyPostfix]
         internal static void UseTurboBoostLocalClientPatch(VehicleController __instance)
         {
@@ -35,7 +35,7 @@ namespace NuclearCruiser.Patches
                 __instance.turboBoosts = 5;
         }
 
-        [HarmonyPatch("DestroyCar")]
+        [HarmonyPatch(nameof(VehicleController.DestroyCar))]
         [HarmonyPrefix]
         internal static void DestroyCarPatch(VehicleController __instance)
         {
@@ -61,7 +61,7 @@ namespace NuclearCruiser.Patches
             cn.Explode();
         }
 
-        [HarmonyPatch("OnCollisionEnter")]
+        [HarmonyPatch(nameof(VehicleController.OnCollisionEnter))]
         [HarmonyPostfix]
         internal static void OnCollisionEnterPatch(VehicleController __instance, ref Collision collision)
         {
@@ -91,7 +91,7 @@ namespace NuclearCruiser.Patches
             }
         }
 
-        [HarmonyPatch("CarReactToObstacle")]
+        [HarmonyPatch(nameof(VehicleController.CarReactToObstacle))]
         [HarmonyPrefix]
         internal static bool CarReactToObstaclePatch(VehicleController __instance)
         {
@@ -112,7 +112,7 @@ namespace NuclearCruiser.Patches
             return true;
         }
 
-        [HarmonyPatch("DealPermanentDamage")]
+        [HarmonyPatch(nameof(VehicleController.DealPermanentDamage))]
         [HarmonyPrefix]
         internal static bool DealPermanentDamagePatch(VehicleController __instance)
         {

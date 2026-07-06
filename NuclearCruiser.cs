@@ -16,6 +16,8 @@ namespace NuclearCruiser
         internal new static ManualLogSource Logger { get; private set; } = null!;
         internal static Harmony? Harmony { get; set; }
 
+        internal static string IsNuclear = "isNuclear";
+
         internal static Texture2D? cruiserTexture;
         internal static Texture2D? destroyedCruiserTexture;
 
