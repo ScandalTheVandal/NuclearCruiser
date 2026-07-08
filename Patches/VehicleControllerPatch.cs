@@ -16,9 +16,9 @@ public static class VehicleControllerPatch
         {
             return;
         }           
-        // not sure what the intent is here, if it's supposed to be randomised when bought, using inShipPhase is probably better here
+        // not sure what the intent is here, if it's supposed to be randomised when bought, using inShipPhase is probably better here (or check magnet state)
         // also we can just check server instead of "is host or is server" since both will yield true anyways, and server makes the most sense here
-        if (!__instance.NetworkManager.IsServer || StartOfRound.Instance.inShipPhase)
+        if (!__instance.NetworkManager.IsServer || StartOfRound.Instance.inShipPhase || __instance.magnetedToShip)
         {
             return;
         }
@@ -176,7 +176,8 @@ public static class VehicleControllerPatch
         {
             return true;
         }
-        if (!__instance.IsOwner || __instance.magnetedToShip || __instance.carDestroyed || __instance.averageVelocity.magnitude < NuclearCruiser.minimumCrashVelocity)
+        if (!__instance.IsOwner || __instance.magnetedToShip || __instance.carDestroyed || 
+            __instance.averageVelocity.magnitude < NuclearCruiser.minimumCrashVelocity)
         {
             return true;
         }
