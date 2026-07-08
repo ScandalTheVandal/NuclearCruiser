@@ -9,6 +9,7 @@ using BepInEx.Configuration;
 namespace NuclearCruiser;
 
 [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
+[BepInDependency("JacobG5.JLL", BepInDependency.DependencyFlags.HardDependency)] // added since it was missing and is a required dependancy, but i'm not sure where it is used
 
 public class NuclearCruiser : BaseUnityPlugin
 {
