@@ -65,11 +65,11 @@ public static class VehicleControllerPatch
     [HarmonyPrefix]
     public static void DestroyCar_Post(VehicleController __instance)
     {
-        if (__instance.carDestroyed)
+        if (__instance.vehicleID != 0)
         {
             return;
-        }
-        if (__instance.vehicleID != 0)
+        }       
+        if (__instance.carDestroyed)
         {
             return;
         }
