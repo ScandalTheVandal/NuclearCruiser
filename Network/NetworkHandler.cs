@@ -70,6 +70,10 @@ internal class NetworkHandler : NetworkBehaviour
     {
         if (target.TryGet(out NetworkObject networkObject))
         {
+            if (vehicleController.TryGetComponent<CruiserNuker>(out _))
+            {
+               
+            }
             networkObject.gameObject.AddComponent<CruiserNuker>();
         }
         else
