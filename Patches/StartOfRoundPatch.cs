@@ -39,7 +39,7 @@ public static class StartOfRoundPatch
             if (ES3.KeyExists(MyPluginInfo.PLUGIN_NAME + NuclearCruiser.IsNuclear, GameNetworkManager.Instance.currentSaveFileName))
             {
                 bool cruiserState = ES3.Load<bool>(MyPluginInfo.PLUGIN_NAME + NuclearCruiser.IsNuclear, GameNetworkManager.Instance.currentSaveFileName);
-                if (cruiserState && !StartOfRound.Instance.attachedVehicle.gameObject.GetComponent<CruiserNuker>())
+                if (cruiserState && !vehicleController.gameObject.TryGetComponent<CruiserNuker>(out _))
                 {
                     Network.NetworkHandler.Instance.AddCruiserNukerClientRpc(StartOfRound.Instance.attachedVehicle.NetworkObject);
                 }
