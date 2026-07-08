@@ -4,14 +4,14 @@ namespace NuclearCruiser.Utils;
 
 public class CruiserNuker : MonoBehaviour
 {
-        internal void Explode()
+    internal void Explode()
+    {
+        GameObject? nuke = Instantiate(NuclearCruiser.nukeObject);
+        if (nuke != null) 
         {
-            GameObject? nuke = Instantiate(NuclearCruiser.nukeObject);
-            if (nuke != null) 
-            {
-                nuke.transform.position = gameObject.transform.position;
-            }
+            nuke.transform.position = gameObject.transform.position;
         }
+    }
         
         private void Start()
         {
