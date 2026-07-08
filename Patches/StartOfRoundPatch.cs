@@ -27,7 +27,7 @@ public static class StartOfRoundPatch
         {
             return;
         }  
-        Network.NetworkHandler.Instance.AddCruiserNukerClientRpc(vehicleController.NetworkObject);
+        Network.NetworkHandler.Instance.AddCruiserNukerRpc(vehicleController);
     }
 
     [HarmonyPatch(nameof(StartOfRound.LoadAttachedVehicle))]
@@ -46,7 +46,7 @@ public static class StartOfRoundPatch
                 bool cruiserState = ES3.Load<bool>(MyPluginInfo.PLUGIN_NAME + NuclearCruiser.IsNuclear, GameNetworkManager.Instance.currentSaveFileName);
                 if (cruiserState && !vehicleController.gameObject.TryGetComponent<CruiserNuker>(out _))
                 {
-                    Network.NetworkHandler.Instance.AddCruiserNukerClientRpc(vehicleController.NetworkObject);
+                    Network.NetworkHandler.Instance.AddCruiserNukerRpc(vehicleController);
                 }
             }
         }
