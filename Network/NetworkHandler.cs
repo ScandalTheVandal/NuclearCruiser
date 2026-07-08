@@ -64,8 +64,9 @@ internal class NetworkHandler : NetworkBehaviour
         Instance = this;
     }
 
-    [ClientRpc]
-    public void AddCruiserNukerClientRpc(NetworkObjectReference target)
+    // take advantage of the new RPC attributes (v73+)
+    [Rpc(SendTo.NotServer)]
+    public void AddCruiserNukerRpc(NetworkObjectReference target)
     {
         if (target.TryGet(out NetworkObject networkObject))
         {
