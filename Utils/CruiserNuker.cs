@@ -15,8 +15,8 @@ public class CruiserNuker : MonoBehaviour
 
     public void Start()
     {
-        // moved this to the top of Start, for one you have much bigger issues if a VehicleController is not found by the time the warning popups play, 
-        // for two we don't want to patch custom vehicles at all (so we dont want the popup for them)
+        // moved this to the top of Start, for one you have much bigger issues if a VehicleController is not found at this point
+        // for two, we don't want to patch custom vehicles at all, aside from the litany of issues this would cause, the popup is only tailored to the Cruiser anyways
         if (!TryGetComponent<VehicleController>(out var vehicleController))
         {
             return;
