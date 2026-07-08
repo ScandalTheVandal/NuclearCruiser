@@ -7,9 +7,9 @@ namespace NuclearCruiser.Patches;
 [HarmonyPatch(typeof(VehicleController))]
 public static class VehicleControllerPatch
 {
-    [HarmonyPatch(nameof(VehicleController.OnNetworkSpawn))]
+    [HarmonyPatch(nameof(VehicleController.Start))]
     [HarmonyPostfix]
-    public static void OnNetworkSpawn_Post(VehicleController __instance)
+    public static void Start_Post(VehicleController __instance)
     {
         // best to just never patch custom vehicles, as who knows what litany of issues this could just end up causing.
         if (__instance.vehicleID != 0)
