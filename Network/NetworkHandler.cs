@@ -25,12 +25,12 @@ internal class NetworkHandler : NetworkBehaviour
         networkPrefab.AddComponent<NetworkHandler>();
         NetworkManager.Singleton.AddNetworkPrefab(networkPrefab);
 
-        NuclearCruiser.Logger.LogInfo("Nuclear Cruiser network network-prefab added.");
+        NuclearCruiser.Logger.LogInfo("Nuclear Cruiser network Network-Prefab added.");
     }
 
     public static void SpawnNetworkHandler()
     {
-        if (NetworkManager.Singleton.IsServer || NetworkManager.Singleton.IsHost)
+        if (NetworkManager.Singleton.IsServer)
         {
             Instantiate(networkPrefab)?.GetComponent<NetworkObject>().Spawn();
             NuclearCruiser.Logger.LogInfo("Spawned network handler.");
@@ -47,10 +47,10 @@ internal class NetworkHandler : NetworkBehaviour
         {
             return;
         }
-        if (Instance.gameObject.GetComponent<NetworkObject>().IsSpawned)
+        if (Instance.gameObject.TryGetComponent<NetworkObject>(out var netObject) && netObject.isSpawned)
         {
-            Instance.gameObject.GetComponent<NetworkObject>().Despawn();
-            NuclearCruiser.Logger.LogInfo("Despawned network handler.");
+            netObject.Despawn();
+            NuclearCruiser.Logger.LogInfo("Despawned network handler.");     
         }
     }
 
