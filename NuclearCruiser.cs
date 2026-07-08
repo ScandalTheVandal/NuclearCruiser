@@ -31,7 +31,6 @@ namespace NuclearCruiser
         internal static Fragility cruiserFragility;
         internal static float minimumCrashVelocity = 4f;
         internal static int crashDamage = 4;
-        internal static bool onlyPatchVanillaCruiser = true;
 
         private void Awake()
         {
@@ -58,7 +57,6 @@ namespace NuclearCruiser
                 string value = Config.Bind<string>("General", "CruiserFragility", "Fragile", new ConfigDescription("Fragility of the cruiser. Fragile makes cruiser take heavy damage from smaller impacts. Extreme makes cruiser on any impact past minimum crash velocity threshold and may explode upon landing on some moons if set too low.", new AcceptableValueList<string>(["Normal" , "Fragile" , "Extreme"]))).Value;
                 minimumCrashVelocity = Config.Bind<float>("General", "MinimumCrashVelocity", 4f, "Damaging impact velocity threshold. Default threshold is reached at very low speeds.").Value;
                 crashDamage = Config.Bind<int>("General", "CrashDamage", 4, "Amount of damage cruiser takes on impact. Only used when CruiserFragility is set to Fragile.").Value;
-                onlyPatchVanillaCruiser = Config.Bind<bool>("General", "OnlyPatchVanillaCruiser", true, "Only turns the vanilla company cruiser into a nuclear cruiser. Setting this to false will also allow other vehicle types to be nuclear. Texture changes to other vehicles will not be applied.").Value;
 
                 cruiserFragility = (value == "Normal") ? Fragility.Normal : (value == "Fragile") ? Fragility.Fragile : Fragility.Extreme;
 
