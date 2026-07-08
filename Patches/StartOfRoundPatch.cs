@@ -1,4 +1,4 @@
-﻿using HarmonyLib;
+using HarmonyLib;
 using System;
 using NuclearCruiser.Utils;
 
@@ -26,13 +26,13 @@ public static class StartOfRoundPatch
         if (!vehicleController.gameObject.TryGetComponent<CruiserNuker>(out var cruiserNuker))
         {
             return;
-        }  
+        }
         Network.NetworkHandler.Instance.AddCruiserNukerRpc(vehicleController);
     }
 
     [HarmonyPatch(nameof(StartOfRound.LoadAttachedVehicle))]
     [HarmonyPostfix]
-    public static void LoadAttachedVehicle_Post() 
+    public static void LoadAttachedVehicle_Post(StartOfRound __instance)
     {
         if (!__instance.attachedVehicle || __instance.attachedVehicle.vehicleID != 0)
         {
@@ -42,7 +42,7 @@ public static class StartOfRoundPatch
         {
             if (ES3.KeyExists(MyPluginInfo.PLUGIN_NAME + NuclearCruiser.IsNuclear, GameNetworkManager.Instance.currentSaveFileName))
             {
-                VehicleController vehicleController = StartOfRound.Instance.attachedVehicle;
+                VehicleController vehicleController = __instance.attachedVehicle;
                 bool cruiserState = ES3.Load<bool>(MyPluginInfo.PLUGIN_NAME + NuclearCruiser.IsNuclear, GameNetworkManager.Instance.currentSaveFileName);
                 if (cruiserState && !vehicleController.gameObject.TryGetComponent<CruiserNuker>(out _))
                 {
@@ -50,8 +50,9 @@ public static class StartOfRoundPatch
                 }
             }
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             NuclearCruiser.Logger.LogError($"Failed to load nuclear cruiser data: {e}");
-        }     
+        }
     }
+}
