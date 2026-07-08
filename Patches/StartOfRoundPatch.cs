@@ -5,18 +5,18 @@ using NuclearCruiser.Utils;
 namespace NuclearCruiser.Patches
 {
     [HarmonyPatch(typeof(StartOfRound))]
-    internal class StartOfRoundPatch
+    public static class StartOfRoundPatch
     {
         [HarmonyPatch(nameof(StartOfRound.Awake))]
         [HarmonyPrefix]
-        private static void AwakePrefix()
+        public static void AwakePrefix()
         {
             Network.NetworkHandler.SpawnNetworkHandler();
         }
 
         [HarmonyPatch(nameof(StartOfRound.SyncAlreadyHeldObjectsServerRpc))]
         [HarmonyPostfix]
-        private static void SyncAlreadyHeldObjectsServerRpc()
+        public static void SyncAlreadyHeldObjectsServerRpc()
         {
             VehicleController vc = StartOfRound.Instance.attachedVehicle;
             if (!vc) return;
@@ -27,7 +27,7 @@ namespace NuclearCruiser.Patches
 
         [HarmonyPatch(nameof(StartOfRound.LoadAttachedVehicle))]
         [HarmonyPostfix]
-        private static void LoadAttachedVehicle_Postfix() 
+        public static void LoadAttachedVehicle_Postfix() 
         {
             try
             {
@@ -43,8 +43,7 @@ namespace NuclearCruiser.Patches
             catch(Exception e)
             {
                 NuclearCruiser.Logger.LogError($"Failed to load nuclear cruiser data: {e}");
-            }
-            
+            }     
         }
     }
 }
