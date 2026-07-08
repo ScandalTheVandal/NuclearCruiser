@@ -15,6 +15,16 @@ public class CruiserNuker : MonoBehaviour
 
     public void Start()
     {
+        // moved this to the top of Start, for one you have much bigger issues if a VehicleController is not found by the time the warning popups play, 
+        // for two we don't want to patch custom vehicles at all (so we dont want the popup for them)
+        if (!TryGetComponent<VehicleController>(out var vehicleController))
+        {
+            return;
+        }
+        if (vehicleController.vehicleID != 0)
+        {
+            return;        
+        }    
         if (NuclearCruiser.nuclearCruiserRadiationWarning && !StartOfRound.Instance.inShipPhase)
         {
             HUDManager.Instance.RadiationWarningHUD();
@@ -30,14 +40,11 @@ public class CruiserNuker : MonoBehaviour
                 HUDManager.Instance.DisplayTip("NUCLEAR CRUISER SPAWNED", "Handle with extreme care.", true);
             }
         }
-        VehicleController? vc = GetComponent<VehicleController>();
-        if (vc == null) return;
         if (NuclearCruiser.infiniteBoosts)
         {
-            vc.turboBoosts = 5;
-            vc.AddTurboBoost();
+            vehicleController.turboBoosts = 5;
+            vehicleController.AddTurboBoost();
         }
-        if (vc.vehicleID != 0) return;
         MeshRenderer[] meshRenderers = GetComponentsInChildren<MeshRenderer>();
         foreach (var renderer in meshRenderers)
         {
